@@ -1,52 +1,68 @@
 
 const container=document.querySelector(".container")
 
+
 //set no. of grids dynamically
-
-
-//16X16 grid
-for(let i=0; i<100*100; i++){
-    const element=document.createElement("div");
-    element.classList.add("cell")
-    container.appendChild(element);
-}
-
-//Select all cells
-const cells=document.querySelectorAll(".cell")
-
-//set up a clear button
-const clear= document.querySelector(".clear")
-clear.addEventListener("click", (event)=>{
-    cells.forEach(element=>{
-        element.style.backgroundColor="white";
-    })
+const gridSize=document.querySelector(".gridSize")
+gridSize.addEventListener("click", (event)=>{
+    let size=prompt("Enter the pixel size from 0-100")
+    run(size);
 })
 
-//change colour
-container.addEventListener("mouseover", (event)=>{
-    if(event.target.classList.contains("cell")){
 
-        if(event.target.classList.contains("active"))
-            event.target.style.backgroundColor="black";
+function run(size){
 
-        if(event.target.classList.contains("erase"))
-            event.target.style.backgroundColor="white";
+    //clear all of the divs inside to reset the whole board and give board with new dimensions
+    container.textContent=""
+    //16X16 grid
+    for(let i=0; i<size*size; i++){
+        const element=document.createElement("div");
+        element.classList.add("cell")
+        container.appendChild(element);
     }
-})
 
-//Activating drawing board using space key
-document.addEventListener("keydown",(event)=>{
-    if(event.key==" "){
+    //Select all cells
+    const cells=document.querySelectorAll(".cell")
+
+    //dynamically allocating no. of grids
+    cells.forEach(element=>{
+        element.style.flexBasis=`calc(100% / ${size})`
+    })
+
+    //set up a clear button
+    const clear= document.querySelector(".clear")
+    clear.addEventListener("click", (event)=>{
         cells.forEach(element=>{
-            element.classList.toggle("active")
+            element.style.backgroundColor="white";
         })
-    }
-})
-
-//button to erase
-eraser=document.querySelector(".eraser")
-eraser.addEventListener("click", (event)=>{
-    cells.forEach(element=>{
-        element.classList.toggle("erase");
     })
-})
+
+    //change colour
+    container.addEventListener("mouseover", (event)=>{
+        if(event.target.classList.contains("cell")){
+
+            if(event.target.classList.contains("active"))
+                event.target.style.backgroundColor="black";
+
+            if(event.target.classList.contains("erase"))
+                event.target.style.backgroundColor="white";
+        }
+    })
+
+    //Activating drawing board using space key
+    document.addEventListener("keydown",(event)=>{
+        if(event.key==" "){
+            cells.forEach(element=>{
+                element.classList.toggle("active")
+            })
+        }
+    })
+
+    //button to erase
+    eraser=document.querySelector(".eraser")
+    eraser.addEventListener("click", (event)=>{
+        cells.forEach(element=>{
+            element.classList.toggle("erase");
+        })
+    })
+}
