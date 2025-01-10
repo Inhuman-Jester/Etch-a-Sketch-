@@ -29,15 +29,24 @@
     background-color: rgb(72, 125, 19);
     font-size: 60px;
     font-family: "Arial", sans-serif; 
-    overflow: hidden    ;
+    overflow: hidden;
     
+}
+
+.input{
+    width:100%;
+    height:70%;
+    display: flex;
+    flex-wrap: wrap;
 }
 
 .btn{
     border: 2px solid black;
     width: 25%;
-    height: 20%;
+    height: 25%;
     margin: 0px;
+    font-size: large;
+    font-weight: bold;
 }
 
 .btn:hover{
